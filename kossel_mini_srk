@@ -241,8 +241,12 @@ custom_menu.cfg.command                      M500
 #
 # LEVELING AND CALIBRATION
 #
+# ! only one leveling strategy should be enabled at a time !
 
-leveling-strategy.ZGrid-leveling.enable true
+leveling-strategy.delta-calibration.enable   true            # basic delta calibration
+leveling-strategy.delta-calibration.radius   78             # the probe radius
+
+leveling-strategy.ZGrid-leveling.enable false
 leveling-strategy.ZGrid-leveling.bed_x 100
 leveling-strategy.ZGrid-leveling.bed_y 100
 leveling-strategy.ZGrid-leveling.bed_z 20
@@ -252,7 +256,6 @@ leveling-strategy.ZGrid-leveling.rows 5 # X divisions (Default 5)
 leveling-strategy.ZGrid-leveling.cols 5 # Y divisions (Default 5)
 leveling-strategy.ZGrid-leveling.probe_offsets 0,0,16.3
 leveling-strategy.ZGrid-leveling.wait_for_probe false
-
 
 zprobe.enable                true               # set to true to enable a zprobe
 zprobe.probe_pin             1.22^              # pin probe is attached to if NC remove the !, Azteeg X5 this is 1.29
@@ -274,6 +277,3 @@ zprobe.decelerate_runout     1                  # how many millimeters your prob
 #comprehensive-delta.probe_offset_x 0 # distance between the probe and the nozzle
 #comprehensive-delta.probe_offset_y 0 #
 #comprehensive-delta.probe_offset_z -5 #
-
-leveling-strategy.delta-calibration.enable   true            # basic delta calibration
-leveling-strategy.delta-calibration.radius   78             # the probe radius
