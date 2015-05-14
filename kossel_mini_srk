@@ -1,4 +1,7 @@
 # MK srk
+#
+# For Azteeg X5
+#
 # Robot module configurations : general handling of movement G-codes and slicing into moves
 
 arm_solution                                 kossel           # delta selection
