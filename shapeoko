@@ -60,7 +60,7 @@ gamma_step_pin                               0.5              # Pin for gamma st
 gamma_dir_pin                                0.4             # Pin for gamma stepper direction
 gamma_en_pin                                 4.29             # Pin for gamma enable
 gamma_current                                0                # Z stepper motor current
-gamma_max_rate                               300.0            # mm/min
+gamma_max_rate                               250.0            # mm/min
 z_acceleration                               30
 
 # Serial communications configuration ( baud rate default to 9600 if undefined )
@@ -120,7 +120,7 @@ gamma_homing_retract_mm                      1                # "
 #endstop_debounce_count                       100              # uncomment if you get noise on your endstops, default is 100
 #
 zprobe.enable                                true           # set to true to enable a zprobe
-zprobe.probe_pin                             0.11^          # pin probe is attached to if NC remove the !
+zprobe.probe_pin                             0.17^          # pin probe is attached to if NC remove the !
 zprobe.slow_feedrate                         5               # mm/sec probe feed rate
 #zprobe.debounce_count                       100             # set if noisy
 zprobe.fast_feedrate                         50             # move feedrate mm/sec
@@ -151,8 +151,39 @@ drillingcycles.dwell_units                   P
 switch.spindle.enable                            true             #
 switch.spindle.input_on_command                  M3               #
 switch.spindle.input_off_command                 M5               #
-switch.spindle.output_pin                        0.26             # Here we are using the first big MOSFET
-switch.spindle.output_type                       pwm              # pwm output settable with S parameter in the input_on_comand
-switch.spindle.max_pwm                           255              # set max pwm for the pin default is 255
+switch.spindle.output_pin                        0.25             # brown jumper cable to long servo cable
+switch.spindle.output_type                       pwm
+#switch.spindle.max_pwm                           128              # set max pwm for the pin default is 255
+# srk 2015-22-05: ^^ this caues weird behaviour for some reason
 switch.spindle.startup_state                     true
 switch.spindle.startup_value                     10
+
+# PSU
+switch.misc.enable                           true             #
+switch.misc.input_on_command                 M42              #
+switch.misc.input_off_command                M43              #
+switch.misc.output_pin                       0.24             #
+switch.misc.output_type                      digital          # just an on or off pin
+
+# Suspend/Resume
+switch.suspend.enable                        true             #
+switch.suspend.input_on_command              M600             #
+switch.suspend.input_off_command             M601             #
+switch.suspend.output_on_command             suspend          # command
+switch.suspend.output_pin                    1.31             # LED
+switch.suspend.output_type                   digital          # just an on or off pin
+
+switch.resume.enable                         true             #
+switch.resume.input_pin                      0.23^            # pin where resume button is connected
+switch.resume.output_on_command              resume           # command
+
+before_resume_gcode M601
+
+
+dacontrol_module_enable true
+#??
+# 0.16 red y-endstop
+# 0.15 orange x-endstop
+# 0.17 blue probe
+# 0.18 brown unconnected
+# usb power green rpi power ^^
